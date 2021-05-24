@@ -39,4 +39,8 @@ protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
+
+	//Task 1
+	//Unoverrided onDead function cause crash. Was calling parrent function, that delete player
+	virtual void OnDead() override;
 };
