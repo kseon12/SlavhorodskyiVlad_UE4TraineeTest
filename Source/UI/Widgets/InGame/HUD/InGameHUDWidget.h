@@ -7,6 +7,7 @@
 #include "InGameHUDWidget.generated.h"
 
 class UTextBlock;
+class UProgressBar;
 
 /**
  * 
@@ -22,6 +23,7 @@ public:
 	
 	void SetMissionInfo(const FString& Info);
 	void SetCurrentWeaponName(const FString& Name);
+	void SetCurrentHealth(float Value);
 	
 private:
 
@@ -34,6 +36,11 @@ private:
 	UTextBlock* MissionInfo;
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* CurrentWeapon;
+
+	/* Health Holder */
+
+	UPROPERTY(meta = (BindWidget))
+	UProgressBar* CurrentHealth;
 
 	bool IsNumberUpTo10(int32 Number) const;
 };

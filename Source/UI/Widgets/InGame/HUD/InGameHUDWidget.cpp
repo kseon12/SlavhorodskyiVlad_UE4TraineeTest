@@ -4,6 +4,7 @@
 #include "InGameHUDWidget.h"
 
 #include <Components/TextBlock.h>
+#include <Components/ProgressBar.h>
 
 void UInGameHUDWidget::SetDefenceTimerValue(float ValueInSeconds)
 {
@@ -29,6 +30,11 @@ void UInGameHUDWidget::SetMissionInfo(const FString& Info)
 void UInGameHUDWidget::SetCurrentWeaponName(const FString& Name)
 {
 	CurrentWeapon->SetText(FText::FromString(Name));
+}
+
+void UInGameHUDWidget::SetCurrentHealth(float Value)
+{
+	CurrentHealth->SetPercent(Value*0.01);
 }
 
 bool UInGameHUDWidget::IsNumberUpTo10(int32 Number) const

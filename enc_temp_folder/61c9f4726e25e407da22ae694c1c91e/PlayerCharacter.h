@@ -25,7 +25,7 @@ public:
 	FRotator GetCameraRotation() const;
 
 	UPlayerCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
+	
 protected:
 	
 	/** Camera boom positioning the camera behind the character */

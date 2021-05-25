@@ -38,6 +38,8 @@ bool UInGameHUDController::TickController(float DeltaTime)
 		SetTimerValue(CurrentGameMode->GetRemainingDefenceTime());
 	}
 
+	UpdateCurrentHealth();
+
 	return true;
 }
 
@@ -83,6 +85,19 @@ void UInGameHUDController::UpdateCurrentWeaponInfo(EWeaponType Type)
 
 	const FWeaponData& WeaponData = WeaponsSubsystem->GetWeaponData(Type);
 	CastedWidget->SetCurrentWeaponName(WeaponData.DisplayName);
+}
+
+void UInGameHUDController::UpdateCurrentHealth()
+{
+	auto CastedWidget = Cast<UInGameHUDWidget>(Widget);
+	if (!EnsureMsg(CastedWidget, TEXT("[InGameHUDController, 1] Widget is not set")))
+	{
+		return;
+	}
+	
+	auto CurrentPlayer = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+
+	CastedWidget->SetCurrentHealth(CurrentPlayer->GetCharacterCurrentHealth());
 }
 
 void UInGameHUDController::SubscribeOnWeaponChanged()

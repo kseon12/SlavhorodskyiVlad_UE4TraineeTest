@@ -27,6 +27,7 @@ public:
 	bool IsDead() const;
 	
 	virtual void OnDamageReceived(const ADefaultCharacter* FromCharacter, const AWeapon* WithWeapon, const FHitResult& Hit);
+	float GetCharacterCurrentHealth() const;
 
 protected:
 	
