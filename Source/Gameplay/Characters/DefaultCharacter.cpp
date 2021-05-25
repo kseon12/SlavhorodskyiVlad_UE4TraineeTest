@@ -103,6 +103,11 @@ void ADefaultCharacter::OnDead()
 		FTimerDelegate::CreateWeakLambda(this, [this]
 		{
 			Rename(L"");
-			delete this;
+
+			/**
+			* if we want to remove Actor from Level - we need to use Destroy function to notify UE to take care of it. 
+			* {delete this;} "delete" object regardless of existing references on it
+			*/
+			Destroy();
 		}), DelayBeforeRemovingAfterDeath, false);
 }

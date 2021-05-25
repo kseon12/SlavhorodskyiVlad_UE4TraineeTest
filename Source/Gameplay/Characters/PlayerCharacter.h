@@ -42,7 +42,9 @@ protected:
 
 	/**
 	* Task 1
-	* Unoverrided onDead function cause crash. Was calling parrent function, that delete player
+	* Override onDead() method to avoid parent-class function call, that destroy object(in this case - player) - and cause crash
 	*/
-	virtual void OnDead() override;
+	virtual void OnDead() override
+	{
+	}
 };
