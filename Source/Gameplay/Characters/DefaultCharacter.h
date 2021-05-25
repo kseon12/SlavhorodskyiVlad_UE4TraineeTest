@@ -65,7 +65,7 @@ protected:
 private:
 	
 	UPROPERTY(EditAnywhere)
-	float DelayBeforeRemovingAfterDeath = 2.0f; //default 10.0f
+	float DelayBeforeRemovingAfterDeath = 10.0f;
 
 	FTimerHandle DeathHandle;
 };
