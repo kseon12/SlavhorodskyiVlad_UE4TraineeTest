@@ -26,7 +26,8 @@ private:
 	
 	void UpdateMissionInfo();
 	void UpdateCurrentWeaponInfo(EWeaponType Type);
-	void UpdateCurrentHealth();
+	void UpdateCurrentHealth(float Value);
 
 	void SubscribeOnWeaponChanged();
+	void SubscribeOnHealthChanged();
 };

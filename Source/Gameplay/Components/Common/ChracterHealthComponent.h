@@ -7,7 +7,7 @@
 #include "ChracterHealthComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeadDelegate);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHealthChangedDelegate);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnHealthChangedDelegate, float);
 
 class UDamageDataAsset;
 

@@ -28,7 +28,7 @@ void UChracterHealthComponent::OnDamageReceived(float Damage, const FName& HitIn
 	}
 
 	CurrentHealth -= Damage * DamageDatabase->GetBoneDamageMultiplier(HitInBone);
-	OnHealthChanged.Broadcast();
+	OnHealthChanged.Broadcast(CurrentHealth);
 
 	if (IsDead())
 	{

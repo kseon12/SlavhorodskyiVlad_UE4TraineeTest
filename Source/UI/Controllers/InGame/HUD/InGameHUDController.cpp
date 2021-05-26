@@ -10,7 +10,7 @@
 #include "Gameplay/GameModes/CastleDefenderGameMode.h"
 #include "Gameplay/Characters/PlayerCharacter.h"
 #include "Gameplay/Weapons/CharacterWeaponComponent.h"
-
+#include "Gameplay/Components/Common/ChracterHealthComponent.h"
 #include "UI/Widgets/InGame/HUD/InGameHUDWidget.h"
 
 #include "Tools/MacroTools.h"
@@ -24,6 +24,7 @@ void UInGameHUDController::Initialize(UDefaultUserWidget* _Widget)
 
 	UpdateMissionInfo();
 	SubscribeOnWeaponChanged();
+	SubscribeOnHealthChanged();
 }
 
 bool UInGameHUDController::TickController(float DeltaTime)
@@ -37,8 +38,6 @@ bool UInGameHUDController::TickController(float DeltaTime)
 	{
 		SetTimerValue(CurrentGameMode->GetRemainingDefenceTime());
 	}
-
-	UpdateCurrentHealth();
 
 	return true;
 }
@@ -87,7 +86,7 @@ void UInGameHUDController::UpdateCurrentWeaponInfo(EWeaponType Type)
 	CastedWidget->SetCurrentWeaponName(WeaponData.DisplayName);
 }
 
-void UInGameHUDController::UpdateCurrentHealth()
+void UInGameHUDController::UpdateCurrentHealth(float Value)
 {
 	auto CastedWidget = Cast<UInGameHUDWidget>(Widget);
 	if (!EnsureMsg(CastedWidget, TEXT("[InGameHUDController, 1] Widget is not set")))
@@ -95,9 +94,7 @@ void UInGameHUDController::UpdateCurrentHealth()
 		return;
 	}
 	
-	auto CurrentPlayer = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-
-	CastedWidget->SetCurrentHealth(CurrentPlayer->GetCharacterCurrentHealth());
+	CastedWidget->SetCurrentHealth(Value);
 }
 
 void UInGameHUDController::SubscribeOnWeaponChanged()
@@ -117,3 +114,19 @@ void UInGameHUDController::SubscribeOnWeaponChanged()
 	WeaponComponent->OnWeaponChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentWeaponInfo);
 }
 
+void UInGameHUDController::SubscribeOnHealthChanged()
+{
+	const APlayerCharacter* CurrentPlayer = UToolbox::GetCurrentPlayerCharacter(this);
+	if (!EnsureMsg(CurrentPlayer, TEXT("[InGameHUDController] Cannot find player's character")))
+	{
+		return;
+	}
+
+	auto HealthComponent = Cast<UChracterHealthComponent>(CurrentPlayer->GetComponentByClass(UChracterHealthComponent::StaticClass()));
+	if (!EnsureMsg(CurrentPlayer, TEXT("[InGameHUDController] Cannot find HealthComponent")))
+	{
+		return;
+	}
+
+	HealthComponent->OnHealthChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentHealth);
+}
