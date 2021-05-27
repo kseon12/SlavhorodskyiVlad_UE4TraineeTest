@@ -6,6 +6,7 @@
 #include "Gameplay/Weapons/CharacterWeaponComponent.h"
 #include "Gameplay/Components/Common/Input/CharacterInputArbiterComponent.h"
 #include "Gameplay/Components/Common/ChracterHealthComponent.h"
+#include "Gameplay/Components/Common/Weapons/CharacterInventoryComponent.h"
 #include "Gameplay/GameModes/DefaultGameMode.h"
 
 #include <Kismet/GameplayStatics.h>
@@ -21,6 +22,9 @@ ADefaultCharacter::ADefaultCharacter()
 
 	/* Health */
 	Health = CreateDefaultSubobject<UChracterHealthComponent>(TEXT("Health"));
+
+	/* Inventory */
+	Inventory = CreateDefaultSubobject<UCharacterInventoryComponent>(TEXT("Inventory"));
 }
 
 void ADefaultCharacter::Tick(float DeltaTime)
@@ -87,6 +91,12 @@ void ADefaultCharacter::OnDamageReceived(const ADefaultCharacter* FromCharacter,
 float ADefaultCharacter::GetCharacterCurrentHealth() const
 {
 	return Health->GetCurrentHealthValue();
+}
+
+void ADefaultCharacter::SwitchWeaponWheel(int Shift)
+{
+	auto WeaponType = Inventory->GetWeaponRoll(Shift);
+	CurrentWeapon->SetWeaponType(WeaponType);
 }
 
 void ADefaultCharacter::Fire()

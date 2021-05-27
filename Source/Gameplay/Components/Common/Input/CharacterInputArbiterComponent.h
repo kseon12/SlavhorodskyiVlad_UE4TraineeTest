@@ -55,6 +55,16 @@ protected:
 	virtual void Turn(float Value);
 	virtual void LookUp(float Value);
 
+	virtual void WeaponSwitchUp()
+	{
+	};
+	virtual void WeaponSwitchDown()
+	{
+	};
+
+	UPROPERTY()
+	ADefaultCharacter* OwnerCharacter;
+
 private:
 	
 	bool bIsFiring = false;
@@ -62,6 +72,5 @@ private:
 	bool bIsJumping = false;
 	bool bIsAiming = false;
 
-	UPROPERTY()
-	ADefaultCharacter* OwnerCharacter;
+
 };

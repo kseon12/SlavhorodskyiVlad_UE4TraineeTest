@@ -20,4 +20,7 @@ public:
 
 	virtual void StartAim() override;
 	virtual void StopAim() override;
+
+	virtual void WeaponSwitchUp() override;
+	virtual void WeaponSwitchDown() override;
 };

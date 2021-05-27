@@ -10,6 +10,7 @@
 class UCharacterWeaponComponent;
 class UCharacterInputArbiterComponent;
 class UChracterHealthComponent;
+class UCharacterInventoryComponent;
 class AWeapon;
 
 UCLASS(config=Game)
@@ -28,6 +29,7 @@ public:
 	
 	virtual void OnDamageReceived(const ADefaultCharacter* FromCharacter, const AWeapon* WithWeapon, const FHitResult& Hit);
 	float GetCharacterCurrentHealth() const;
+	void SwitchWeaponWheel(int Shift);
 
 protected:
 	
@@ -57,6 +59,11 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
 	UChracterHealthComponent* Health;
+
+	/* Health */
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
+	UCharacterInventoryComponent* Inventory;
 	
 	/* Death */
 	
