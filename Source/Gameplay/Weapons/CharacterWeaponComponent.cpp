@@ -30,6 +30,8 @@ void UCharacterWeaponComponent::SetWeaponType(EWeaponType Type)
 
 	ParseWeaponData(WeaponData);
 
+	bIsPowerUpActive = false;
+
 	OnWeaponChanged.Broadcast(WeaponType);
 }
 
@@ -55,4 +57,33 @@ void UCharacterWeaponComponent::Fire(const ADefaultCharacter* Caller)
 	{
 		Weapon->Fire();
 	}
+}
+
+void UCharacterWeaponComponent::SetDamageMultiplier(float Value)
+{
+	auto Weapon = Cast<AWeapon>(GetChildActor());
+
+	if ( Weapon && !bIsPowerUpActive)
+	{
+		auto DamageValue = Weapon->GetDamage();
+		Weapon->SetDamage(DamageValue * Value);
+		bIsPowerUpActive = true;
+
+		/** Subject to change on Tick check with additive time left */
+		GetWorld()->GetTimerManager().SetTimer(PowerUpHandle,
+			FTimerDelegate::CreateWeakLambda(this, [this,Weapon,DamageValue]
+		{
+			if (bIsPowerUpActive)
+			{
+				bIsPowerUpActive = false;
+				Weapon->SetDamage(DamageValue);
+			}
+
+		}), DelayBeforeRemovingPowerUp, false);
+	}
+}
+
+bool UCharacterWeaponComponent::GetIsPowerUpActive()
+{
+	return bIsPowerUpActive;
 }

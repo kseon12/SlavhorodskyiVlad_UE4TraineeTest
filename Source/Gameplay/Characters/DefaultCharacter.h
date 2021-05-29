@@ -13,7 +13,7 @@ class UChracterHealthComponent;
 class UCharacterInventoryComponent;
 class AWeapon;
 
-UCLASS(config=Game)
+UCLASS(config = Game)
 class ADefaultCharacter : public ACharacter
 {
 	GENERATED_BODY()
@@ -21,20 +21,22 @@ class ADefaultCharacter : public ACharacter
 public:
 
 	ADefaultCharacter();
-	
+
 	virtual void Tick(float DeltaTime) override;
-	
+
 	bool IsEnemy(AActor* Actor) const;
 	bool IsDead() const;
-	
+
 	virtual void OnDamageReceived(const ADefaultCharacter* FromCharacter, const AWeapon* WithWeapon, const FHitResult& Hit);
+
 	float GetCharacterCurrentHealth() const;
+
 	void SwitchWeaponWheel(int Shift);
 
 protected:
-	
+
 	virtual void BeginPlay() override;
-	
+
 	/* Firing, Weapons */
 
 	void Fire();
@@ -46,35 +48,39 @@ protected:
 	UCharacterWeaponComponent* CurrentWeapon;
 
 	/* Enemies */
-	
+
 	UPROPERTY(EditAnywhere, Category = "Enemies")
 	TArray<UClass*> EnemiesList;
 
 	/* Inputs */
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Input")
 	UCharacterInputArbiterComponent* InputArbiter;
 
 	/* Health */
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
 	UChracterHealthComponent* Health;
 
 	/* Health */
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
 	UCharacterInventoryComponent* Inventory;
-	
+
 	/* Death */
-	
+
 	UFUNCTION()
 	virtual void OnDead();
 
+	/* Spawn Item*/
+	UFUNCTION()
+	virtual void OnDeadSpawnItem();
+
 private:
-	
+
+	/** Default value 10.0f. Too big to test drop mechanics with not guarantee drop */
 	UPROPERTY(EditAnywhere)
-	float DelayBeforeRemovingAfterDeath = 10.0f;
+	float DelayBeforeRemovingAfterDeath = 3.0f;
 
 	FTimerHandle DeathHandle;
 };
-

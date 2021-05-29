@@ -8,6 +8,8 @@
 
 class ULevelDataAsset;
 class UWeaponsDataAsset;
+class UDefaultColectableItemsDataAsset;
+
 
 /**
  * 
@@ -26,6 +28,9 @@ public:
 	
 	/** Every particular game mode tells us about weapons available in the game */
 	const UWeaponsDataAsset* GetWeaponsDatabase() const { return WeaponsDatabase; }
+
+	/** Every particular game mode tells us about items available in the game */
+	const UDefaultColectableItemsDataAsset* GetItemsDatabase() const	{ return ItemsDatabase; }
 	
 protected:
 
@@ -34,4 +39,7 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly)
 	UWeaponsDataAsset* WeaponsDatabase;
+
+	UPROPERTY(EditDefaultsOnly)
+	UDefaultColectableItemsDataAsset* ItemsDatabase;
 };

@@ -21,11 +21,9 @@ UCharacterInventoryComponent::UCharacterInventoryComponent()
 void UCharacterInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
 	
 	OwnerCharacter = Cast<ADefaultCharacter>(GetOwner());
-	EnsureMsg(OwnerCharacter, TEXT("[InputArbiter] Owner is not character which is wrong"));
+	EnsureMsg(OwnerCharacter, TEXT("[CharacterInventoryComponent] Owner is not character which is wrong"));
 	
 	WeaponTypeContainer.Add(EWeaponType::AK47);
 	WeaponTypeContainer.Add(EWeaponType::AK74);

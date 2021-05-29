@@ -55,10 +55,10 @@ protected:
 	virtual void Turn(float Value);
 	virtual void LookUp(float Value);
 
-	virtual void WeaponSwitchUp()
+	virtual void WeaponSwitchPrevious()
 	{
 	};
-	virtual void WeaponSwitchDown()
+	virtual void WeaponSwitchNext()
 	{
 	};
 

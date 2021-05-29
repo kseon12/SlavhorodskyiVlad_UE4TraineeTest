@@ -22,8 +22,13 @@ public:
 
 	virtual void OnDamageReceived(float Damage, const FName& HitInBone);
 
+	virtual void OnHealthPickUpReceived(float Value);
+
 	UFUNCTION(BlueprintCallable)
 	bool IsDead() const { return CurrentHealth <= 0.0f; }
+
+	UFUNCTION(BlueprintCallable)
+	bool IsFull() const;
 
 	UPROPERTY(BlueprintAssignable)
 	FOnDeadDelegate OnDeadDelegate;

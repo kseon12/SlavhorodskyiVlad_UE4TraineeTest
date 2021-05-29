@@ -35,8 +35,8 @@ void UPlayerInputArbiterComponent::SetupPlayerInputComponent(class UInputCompone
 	PlayerInputComponent->BindAxis("Turn", this, &UPlayerInputArbiterComponent::Turn);
 	PlayerInputComponent->BindAxis("LookUp", this, &UPlayerInputArbiterComponent::LookUp);
 
-	PlayerInputComponent->BindAction("WeaponSwitchUp", IE_Released, this, &UPlayerInputArbiterComponent::WeaponSwitchUp);
-	PlayerInputComponent->BindAction("WeaponSwitchDown", IE_Released, this, &UPlayerInputArbiterComponent::WeaponSwitchDown);
+	PlayerInputComponent->BindAction("WeaponSwitchUp", IE_Released, this, &UPlayerInputArbiterComponent::WeaponSwitchPrevious);
+	PlayerInputComponent->BindAction("WeaponSwitchDown", IE_Released, this, &UPlayerInputArbiterComponent::WeaponSwitchNext);
 
 	OwnerCharacter = Cast<ADefaultCharacter>(GetOwner());
 }
@@ -79,12 +79,12 @@ void UPlayerInputArbiterComponent::StopAim()
 	FollowCamera->StopAiming();
 }
 
-void UPlayerInputArbiterComponent::WeaponSwitchUp()
+void UPlayerInputArbiterComponent::WeaponSwitchPrevious()
 {
 	OwnerCharacter->SwitchWeaponWheel(-1);
 }
 
-void UPlayerInputArbiterComponent::WeaponSwitchDown()
+void UPlayerInputArbiterComponent::WeaponSwitchNext()
 {
 	OwnerCharacter->SwitchWeaponWheel(1);
 }

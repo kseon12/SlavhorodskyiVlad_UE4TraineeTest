@@ -2,12 +2,12 @@
 	"Targets": [
 		{
 			"Name": "CastleDefender",
-			"Path": "H:\\External programs\\ProgramFiles\\GitHub\\SlavhorodskyiVlad_UE4TraineeTest\\Source\\CastleDefender.Target.cs",
+			"Path": "E:\\GitRepository\\SlavhorodskyiVlad_UE4TraineeTest\\Source\\CastleDefender.Target.cs",
 			"Type": "Game"
 		},
 		{
 			"Name": "CastleDefenderEditor",
-			"Path": "H:\\External programs\\ProgramFiles\\GitHub\\SlavhorodskyiVlad_UE4TraineeTest\\Source\\CastleDefenderEditor.Target.cs",
+			"Path": "E:\\GitRepository\\SlavhorodskyiVlad_UE4TraineeTest\\Source\\CastleDefenderEditor.Target.cs",
 			"Type": "Editor"
 		}
 	]

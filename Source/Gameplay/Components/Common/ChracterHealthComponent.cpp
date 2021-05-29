@@ -2,10 +2,10 @@
 
 
 #include "ChracterHealthComponent.h"
-
 #include "DataHolders/Gameplay/DamageData/DamageDataAsset.h"
-
 #include "Tools/MacroTools.h"
+
+#include "Math/UnrealMathUtility.h"
 
 void UChracterHealthComponent::BeginPlay()
 {
@@ -36,9 +36,24 @@ void UChracterHealthComponent::OnDamageReceived(float Damage, const FName& HitIn
 	}
 }
 
+void UChracterHealthComponent::OnHealthPickUpReceived(float Value)
+{
+	CurrentHealth += Value;
+
+	if (CurrentHealth > InitialHealth)
+	{
+		CurrentHealth = InitialHealth;
+	}
+
+	OnHealthChanged.Broadcast(CurrentHealth);
+}
+
 void UChracterHealthComponent::OnDead()
 {
 	OnDeadDelegate.Broadcast();
 }
 
-
+bool UChracterHealthComponent::IsFull() const
+{
+	return  FMath::IsNearlyEqual(InitialHealth, CurrentHealth, 0.001f);
+}

@@ -25,6 +25,8 @@ public:
 	EWeaponType GetWeaponType() const { return WeaponType; }
 
 	virtual void Fire(const ADefaultCharacter* Caller);
+	void SetDamageMultiplier(float Value);
+	bool GetIsPowerUpActive();
 
 	FOnWeaponChangedDelegate OnWeaponChanged;
 
@@ -35,4 +37,8 @@ protected:
 private:
 
 	EWeaponType WeaponType = EWeaponType::None;
+	bool bIsPowerUpActive = false;
+	float DelayBeforeRemovingPowerUp = 10.0f;
+
+	FTimerHandle PowerUpHandle;
 };
