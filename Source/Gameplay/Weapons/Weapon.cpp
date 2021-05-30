@@ -2,6 +2,7 @@
 
 
 #include "Weapon.h"
+#include "Gameplay/Components/Common/Weapons/WeaponAmmoComponent.h"
 
 AWeapon::AWeapon()
 {
@@ -17,6 +18,9 @@ AWeapon::AWeapon()
 		Mesh->SetGenerateOverlapEvents(false);
 		Mesh->SetCanEverAffectNavigation(false);
 	}
+
+	/* WeaponAmmo */
+	WeaponAmmo = CreateDefaultSubobject<UWeaponAmmoComponent>(TEXT("WeaponAmmo"));
 }
 
 bool AWeapon::Fire()
@@ -29,21 +33,17 @@ bool AWeapon::Fire()
 	CurrentCooldown = Cooldown;
 	bIsCooledDown = false;
 
-	CurrentMagazine -= 1;
-	OnMagazineSizeChanged.Broadcast(CurrentMagazine);
-
 	return true;
 }
 
 bool AWeapon::CanFire() const
 {
-	return bIsCooledDown && CurrentMagazine;
+	return bIsCooledDown && WeaponAmmo->DecreaseBulletsInMagazine();
 }
 
 void AWeapon::Reload()
 {
-	CurrentMagazine = InitialMagazine;
-	OnMagazineSizeChanged.Broadcast(CurrentMagazine);
+	WeaponAmmo->Reload();
 }
 
 void AWeapon::Tick(float DeltaTime)

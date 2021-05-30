@@ -12,6 +12,7 @@
 #include "Gameplay/Weapons/CharacterWeaponComponent.h"
 #include "Gameplay/Components/Common/ChracterHealthComponent.h"
 #include "UI/Widgets/InGame/HUD/InGameHUDWidget.h"
+#include "Gameplay/Components/Common/Weapons/WeaponAmmoComponent.h"
 
 #include "Tools/MacroTools.h"
 #include "Tools/Toolbox.h"
@@ -85,8 +86,10 @@ void UInGameHUDController::UpdateCurrentWeaponInfo(EWeaponType Type)
 	const FWeaponData& WeaponData = WeaponsSubsystem->GetWeaponData(Type);
 	CastedWidget->SetCurrentWeaponName(WeaponData.DisplayName);
 
-	SubscribeOnMagazineSizeChanged();
-	CastedWidget->SetCurrentMagazine(WeaponData.Magazine);
+	SubscribeOnMagazineChanged();
+	CastedWidget->SetCurrentBullets(WeaponData.BulletsInMagazine);
+	CastedWidget->SetCurrentMagazines(WeaponData.InitialMagazineCount);
+
 }
 
 void UInGameHUDController::UpdateCurrentHealth(float Value)
@@ -100,7 +103,7 @@ void UInGameHUDController::UpdateCurrentHealth(float Value)
 	CastedWidget->SetCurrentHealth(Value);
 }
 
-void UInGameHUDController::UpdateCurrentMagazine(int CurrentMagazin)
+void UInGameHUDController::UpdateCurrentBullets(int CurrentBullets)
 {
 	auto CastedWidget = Cast<UInGameHUDWidget>(Widget);
 	if (!EnsureMsg(CastedWidget, TEXT("[InGameHUDController, 1] Widget is not set")))
@@ -108,7 +111,18 @@ void UInGameHUDController::UpdateCurrentMagazine(int CurrentMagazin)
 		return;
 	}
 
-	CastedWidget->SetCurrentMagazine(CurrentMagazin);
+	CastedWidget->SetCurrentBullets(CurrentBullets);
+}
+
+void UInGameHUDController::UpdateCurrentMagazines(int Value)
+{
+	auto CastedWidget = Cast<UInGameHUDWidget>(Widget);
+	if (!EnsureMsg(CastedWidget, TEXT("[InGameHUDController, 1] Widget is not set")))
+	{
+		return;
+	}
+
+	CastedWidget->SetCurrentMagazines(Value);
 }
 
 void UInGameHUDController::SubscribeOnWeaponChanged()
@@ -145,7 +159,7 @@ void UInGameHUDController::SubscribeOnHealthChanged()
 	HealthComponent->OnHealthChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentHealth);
 }
 
-void UInGameHUDController::SubscribeOnMagazineSizeChanged()
+void UInGameHUDController::SubscribeOnMagazineChanged()
 {
 	const APlayerCharacter* CurrentPlayer = UToolbox::GetCurrentPlayerCharacter(this);
 	if (!EnsureMsg(CurrentPlayer, TEXT("[InGameHUDController] Cannot find player's character")))
@@ -165,6 +179,13 @@ void UInGameHUDController::SubscribeOnMagazineSizeChanged()
 		return;
 	}
 
-	Weapon->OnMagazineSizeChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentMagazine);
+	auto WeaponAmmoComponent = Cast<UWeaponAmmoComponent>(Weapon->GetComponentByClass(UWeaponAmmoComponent::StaticClass()));
+	if (!EnsureMsg(WeaponAmmoComponent, TEXT("[InGameHUDController] Cannot find WeaponAmmoComponent")))
+	{
+		return;
+	}
+
+	WeaponAmmoComponent->OnBulletsInMagazineChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentBullets);
+	WeaponAmmoComponent->OnMagazineCountChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentMagazines);
 }
 

@@ -76,6 +76,9 @@ protected:
 	/* Spawn Item*/
 	UFUNCTION()
 	virtual void OnDeadSpawnItem();
+	void SpawnHealth();
+	void SpawnPowerUp();
+	void SpawnAmmo();
 
 private:
 

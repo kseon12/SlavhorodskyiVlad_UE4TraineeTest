@@ -28,9 +28,10 @@ private:
 	void UpdateMissionInfo();
 	void UpdateCurrentWeaponInfo(EWeaponType Type);
 	void UpdateCurrentHealth(float Value);
-	void UpdateCurrentMagazine(int Value);
+	void UpdateCurrentBullets(int Value);
+	void UpdateCurrentMagazines(int Value);
 
 	void SubscribeOnWeaponChanged();
 	void SubscribeOnHealthChanged();
-	void SubscribeOnMagazineSizeChanged();
+	void SubscribeOnMagazineChanged();
 };

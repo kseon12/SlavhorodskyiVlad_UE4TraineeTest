@@ -24,8 +24,9 @@ public:
 	void SetMissionInfo(const FString& Info);
 	void SetCurrentWeaponName(const FString& Name);
 	void SetCurrentHealth(float Value);
-	void SetCurrentMagazine(int Value);
-	
+	void SetCurrentMagazines(int Value);
+	void SetCurrentBullets(int Value);
+
 private:
 
 	UPROPERTY(meta = (BindWidget))
@@ -49,7 +50,10 @@ private:
 	/* AMMO Holder */
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* MagazineSize;
+	UTextBlock* BulletsCount;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* MagazineCount;
 
 	bool IsNumberUpTo10(int32 Number) const;
 };

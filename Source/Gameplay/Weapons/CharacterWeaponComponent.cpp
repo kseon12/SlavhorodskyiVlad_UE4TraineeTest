@@ -4,7 +4,7 @@
 #include "CharacterWeaponComponent.h"
 
 #include "Subsystems/Persistent/Gameplay/WeaponsSubsystem.h"
-
+#include "Gameplay/Components/Common/Weapons/WeaponAmmoComponent.h"
 #include "Tools/MacroTools.h"
 
 void UCharacterWeaponComponent::SetWeaponType(EWeaponType Type)
@@ -48,7 +48,15 @@ void UCharacterWeaponComponent::ParseWeaponData(const FWeaponData& Data)
 		Weapon->SetCooldown(Data.Cooldown);
 		Weapon->SetDamage(Data.Damage);
 		Weapon->SetDamageTypeClass(Data.DamageTypeClass);
-		Weapon->SetMagazine(Data.Magazine);
+
+		auto WeaponAmmoComponent = Cast<UWeaponAmmoComponent>(Weapon->GetComponentByClass(UWeaponAmmoComponent::StaticClass()));
+		if (!EnsureMsg(WeaponAmmoComponent, TEXT("[InGameHUDController] Cannot find WeaponAmmoComponent")))
+		{
+			return;
+		}
+
+		WeaponAmmoComponent->SetInitialBulletsInMagazine(Data.BulletsInMagazine);
+		WeaponAmmoComponent->SetInitialMagazineCount(Data.InitialMagazineCount);
 	}
 }
 
@@ -56,10 +64,7 @@ void UCharacterWeaponComponent::Fire(const ADefaultCharacter* Caller)
 {
 	if (auto Weapon = Cast<AWeapon>(GetChildActor()))
 	{
-		if (Weapon->GetCurrentMagazine())
-		{
-			Weapon->Fire();
-		}
+		Weapon->Fire();
 	}
 }
 

@@ -6,7 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
 
-DECLARE_MULTICAST_DELEGATE_OneParam(FOnMagazineSizeChangedDelegate, int);
+
+class UWeaponAmmoComponent;
 
 USTRUCT()
 struct FFirePoints
@@ -45,16 +46,14 @@ public:
 	void SetDamage(float _Damage) { Damage = _Damage; }
 	FORCEINLINE float GetDamage() const { return Damage; }
 
-	void SetMagazine(int _Magazine)	{ InitialMagazine = CurrentMagazine =_Magazine;	}
-	FORCEINLINE int GetCurrentMagazine() const	{ return CurrentMagazine;}
-
-	FOnMagazineSizeChangedDelegate OnMagazineSizeChanged;
-
 protected:
 
 	/** The main skeletal mesh associated with this Weapon. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USkeletalMeshComponent* Mesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "WeaponAmmo")
+	UWeaponAmmoComponent* WeaponAmmo;
 
 private:
 	
@@ -67,8 +66,4 @@ private:
 	float Cooldown = 0.0f;
 
 	float Damage = 0.0f;
-
-	int InitialMagazine = 0;
-	int CurrentMagazine = 0;
-
 };

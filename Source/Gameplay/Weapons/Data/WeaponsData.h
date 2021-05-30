@@ -48,7 +48,10 @@ struct FWeaponData
 	float Damage = 0.0f;
 	
 	UPROPERTY(EditDefaultsOnly)
-	int Magazine = 0;
+	int BulletsInMagazine = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+	int InitialMagazineCount = 0;
 
 	/** OverrideTransform says us how the weapon should be placed inside of the character mesh */
 	UPROPERTY(EditDefaultsOnly)

@@ -144,33 +144,71 @@ void ADefaultCharacter::OnDeadSpawnItem()
 	/**Every 5 number guarantee power-up to spawn. 20 lucky numbers of 100 should roughly represent 20% chance  */
 	if (RandValue % 5 == 0)
 	{
-		auto ItemsSubsystem = UItemsSubsystem::Get(this);
-		FActorSpawnParameters SpawnParameters;
-		FRotator SpawnRotator{ 0.0f,0.0f, 0.0f };
-
 		if (RandValue % 2 == 0)
 		{
-			const FItemData& ItemData = ItemsSubsystem->GetItemData(EItemType::HealthPickUp);
-			TSubclassOf<AConsumable> ActorToSpawn = ItemData.ItemClass;
-
-			auto Item = GetWorld()->SpawnActor<AConsumable>(ActorToSpawn, GetActorLocation(), SpawnRotator, SpawnParameters);
-
-			if (Item)
-			{
-				Item->SetAdditiveValue(ItemData.AdditiveValue);
-			}
+			SpawnHealth();
 		}
 		else
 		{
-			const FItemData& ItemData = ItemsSubsystem->GetItemData(EItemType::PowerUpPickUp);
-			TSubclassOf<AConsumable> ActorToSpawn = ItemData.ItemClass;
-
-			auto Item = GetWorld()->SpawnActor<AConsumable>(ActorToSpawn, GetActorLocation(), SpawnRotator, SpawnParameters);
-
-			if (Item)
-			{
-				Item->SetMultiplicativeValue(ItemData.MultiplicativeValue);
-			}
+			SpawnPowerUp();
 		}
+	}
+	else
+	{
+		if (RandValue % 2 == 0)
+		{
+			SpawnAmmo();
+		}
+	}
+}
+
+void ADefaultCharacter::SpawnHealth()
+{
+	auto ItemsSubsystem = UItemsSubsystem::Get(this);
+	FActorSpawnParameters SpawnParameters;
+	FRotator SpawnRotator{ 0.0f,0.0f, 0.0f };
+
+	const FItemData& ItemData = ItemsSubsystem->GetItemData(EItemType::HealthPickUp);
+	TSubclassOf<AConsumable> ActorToSpawn = ItemData.ItemClass;
+
+	auto Item = GetWorld()->SpawnActor<AConsumable>(ActorToSpawn, GetActorLocation(), SpawnRotator, SpawnParameters);
+
+	if (Item)
+	{
+		Item->SetAdditiveValue(ItemData.AdditiveValue);
+	}
+}
+
+void ADefaultCharacter::SpawnPowerUp()
+{
+	auto ItemsSubsystem = UItemsSubsystem::Get(this);
+	FActorSpawnParameters SpawnParameters;
+	FRotator SpawnRotator{ 0.0f,0.0f, 0.0f };
+
+	const FItemData& ItemData = ItemsSubsystem->GetItemData(EItemType::PowerUpPickUp);
+	TSubclassOf<AConsumable> ActorToSpawn = ItemData.ItemClass;
+
+	auto Item = GetWorld()->SpawnActor<AConsumable>(ActorToSpawn, GetActorLocation(), SpawnRotator, SpawnParameters);
+
+	if (Item)
+	{
+		Item->SetAdditiveValue(ItemData.MultiplicativeValue);
+	}
+}
+
+void ADefaultCharacter::SpawnAmmo()
+{
+	auto ItemsSubsystem = UItemsSubsystem::Get(this);
+	FActorSpawnParameters SpawnParameters;
+	FRotator SpawnRotator{ 0.0f,0.0f, 0.0f };
+
+	const FItemData& ItemData = ItemsSubsystem->GetItemData(EItemType::AmmoPickUp);
+	TSubclassOf<AConsumable> ActorToSpawn = ItemData.ItemClass;
+
+	auto Item = GetWorld()->SpawnActor<AConsumable>(ActorToSpawn, GetActorLocation(), SpawnRotator, SpawnParameters);
+
+	if (Item)
+	{
+		Item->SetAdditiveValue(ItemData.AdditiveValue);
 	}
 }

@@ -39,9 +39,14 @@ void UInGameHUDWidget::SetCurrentHealth(float Value)
 	HealthText->SetText(FText::FromString(HealthTextString));
 }
 
-void UInGameHUDWidget::SetCurrentMagazine(int Value)
+void UInGameHUDWidget::SetCurrentMagazines(int Value)
 {
-	MagazineSize->SetText(FText::FromString(FString::Printf(TEXT("%i"), Value)));
+	MagazineCount->SetText(FText::FromString(FString::Printf(TEXT("%i"), Value)));
+}
+
+void UInGameHUDWidget::SetCurrentBullets(int Value)
+{
+	BulletsCount->SetText(FText::FromString(FString::Printf(TEXT("%i"), Value)));
 }
 
 bool UInGameHUDWidget::IsNumberUpTo10(int32 Number) const

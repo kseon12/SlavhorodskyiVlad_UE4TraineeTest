@@ -14,7 +14,9 @@ enum class EItemType
 
 	HealthPickUp,
 
-	PowerUpPickUp
+	PowerUpPickUp,
+
+	AmmoPickUp
 };
 
 USTRUCT()
