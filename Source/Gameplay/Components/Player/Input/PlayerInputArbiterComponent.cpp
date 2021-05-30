@@ -38,6 +38,8 @@ void UPlayerInputArbiterComponent::SetupPlayerInputComponent(class UInputCompone
 	PlayerInputComponent->BindAction("WeaponSwitchUp", IE_Released, this, &UPlayerInputArbiterComponent::WeaponSwitchPrevious);
 	PlayerInputComponent->BindAction("WeaponSwitchDown", IE_Released, this, &UPlayerInputArbiterComponent::WeaponSwitchNext);
 
+	PlayerInputComponent->BindAction("Reload", IE_Released, this, &UPlayerInputArbiterComponent::Reload);
+
 	OwnerCharacter = Cast<ADefaultCharacter>(GetOwner());
 }
 
@@ -87,4 +89,9 @@ void UPlayerInputArbiterComponent::WeaponSwitchPrevious()
 void UPlayerInputArbiterComponent::WeaponSwitchNext()
 {
 	OwnerCharacter->SwitchWeaponWheel(1);
+}
+
+void UPlayerInputArbiterComponent::Reload()
+{
+	OwnerCharacter->Reload();
 }

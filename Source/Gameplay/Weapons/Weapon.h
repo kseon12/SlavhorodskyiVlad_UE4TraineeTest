@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnMagazineSizeChangedDelegate, int);
+
 USTRUCT()
 struct FFirePoints
 {
@@ -26,6 +28,7 @@ public:
 
 	virtual bool Fire();
 	virtual bool CanFire() const;
+	virtual void Reload();
 
 	/** If this weapon has throwing type of attack, we should set start and end point of the throwed object (e.g. Bullet or Grenade) */
 	virtual void SetFirePoints(const FFirePoints& _FirePoints) { FirePoints = _FirePoints; }
@@ -41,6 +44,11 @@ public:
 
 	void SetDamage(float _Damage) { Damage = _Damage; }
 	FORCEINLINE float GetDamage() const { return Damage; }
+
+	void SetMagazine(int _Magazine)	{ InitialMagazine = CurrentMagazine =_Magazine;	}
+	FORCEINLINE int GetCurrentMagazine() const	{ return CurrentMagazine;}
+
+	FOnMagazineSizeChangedDelegate OnMagazineSizeChanged;
 
 protected:
 
@@ -59,4 +67,8 @@ private:
 	float Cooldown = 0.0f;
 
 	float Damage = 0.0f;
+
+	int InitialMagazine = 0;
+	int CurrentMagazine = 0;
+
 };

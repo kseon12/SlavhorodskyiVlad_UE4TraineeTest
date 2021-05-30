@@ -7,6 +7,7 @@
 #include "Gameplay/Weapons/Data/WeaponsData.h"
 #include "InGameHUDController.generated.h"
 
+class UCharacterWeaponComponent;
 /**
  * 
  */
@@ -27,7 +28,9 @@ private:
 	void UpdateMissionInfo();
 	void UpdateCurrentWeaponInfo(EWeaponType Type);
 	void UpdateCurrentHealth(float Value);
+	void UpdateCurrentMagazine(int Value);
 
 	void SubscribeOnWeaponChanged();
 	void SubscribeOnHealthChanged();
+	void SubscribeOnMagazineSizeChanged();
 };

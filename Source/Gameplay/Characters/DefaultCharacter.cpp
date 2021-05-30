@@ -102,6 +102,11 @@ void ADefaultCharacter::SwitchWeaponWheel(int Shift)
 	CurrentWeapon->SetWeaponType(WeaponType);
 }
 
+void ADefaultCharacter::Reload()
+{
+	CurrentWeapon->Reload();
+}
+
 void ADefaultCharacter::Fire()
 {
 	if (EnsureMsg(CurrentWeapon, TEXT("[DefaultCharacter] CurrentWeapon is not set in derived class constructor")))

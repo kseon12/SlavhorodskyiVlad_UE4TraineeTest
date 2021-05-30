@@ -48,6 +48,7 @@ void UCharacterWeaponComponent::ParseWeaponData(const FWeaponData& Data)
 		Weapon->SetCooldown(Data.Cooldown);
 		Weapon->SetDamage(Data.Damage);
 		Weapon->SetDamageTypeClass(Data.DamageTypeClass);
+		Weapon->SetMagazine(Data.Magazine);
 	}
 }
 
@@ -55,7 +56,10 @@ void UCharacterWeaponComponent::Fire(const ADefaultCharacter* Caller)
 {
 	if (auto Weapon = Cast<AWeapon>(GetChildActor()))
 	{
-		Weapon->Fire();
+		if (Weapon->GetCurrentMagazine())
+		{
+			Weapon->Fire();
+		}
 	}
 }
 
@@ -86,4 +90,12 @@ void UCharacterWeaponComponent::SetDamageMultiplier(float Value)
 bool UCharacterWeaponComponent::GetIsPowerUpActive()
 {
 	return bIsPowerUpActive;
+}
+
+void UCharacterWeaponComponent::Reload()
+{
+	if (auto Weapon = Cast<AWeapon>(GetChildActor()))
+	{
+		Weapon->Reload();
+	}
 }

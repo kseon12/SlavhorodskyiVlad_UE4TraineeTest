@@ -34,9 +34,14 @@ void UInGameHUDWidget::SetCurrentWeaponName(const FString& Name)
 
 void UInGameHUDWidget::SetCurrentHealth(float Value)
 {
-	CurrentHealth->SetPercent(Value);
+	CurrentHealth->SetPercent(Value*0.01);
 	FString HealthTextString = FString::Printf(TEXT("%i"),(int)Value)+TEXT("%");
 	HealthText->SetText(FText::FromString(HealthTextString));
+}
+
+void UInGameHUDWidget::SetCurrentMagazine(int Value)
+{
+	MagazineSize->SetText(FText::FromString(FString::Printf(TEXT("%i"), Value)));
 }
 
 bool UInGameHUDWidget::IsNumberUpTo10(int32 Number) const

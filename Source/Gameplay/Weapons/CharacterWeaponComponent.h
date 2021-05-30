@@ -27,6 +27,7 @@ public:
 	virtual void Fire(const ADefaultCharacter* Caller);
 	void SetDamageMultiplier(float Value);
 	bool GetIsPowerUpActive();
+	void Reload();
 
 	FOnWeaponChangedDelegate OnWeaponChanged;
 

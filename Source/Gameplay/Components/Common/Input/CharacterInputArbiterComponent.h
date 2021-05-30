@@ -55,12 +55,10 @@ protected:
 	virtual void Turn(float Value);
 	virtual void LookUp(float Value);
 
-	virtual void WeaponSwitchPrevious()
-	{
-	};
-	virtual void WeaponSwitchNext()
-	{
-	};
+	virtual void WeaponSwitchPrevious()	{	};
+	virtual void WeaponSwitchNext()	{	};
+
+	virtual void Reload(){	};
 
 	UPROPERTY()
 	ADefaultCharacter* OwnerCharacter;

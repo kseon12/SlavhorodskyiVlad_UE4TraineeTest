@@ -84,6 +84,9 @@ void UInGameHUDController::UpdateCurrentWeaponInfo(EWeaponType Type)
 
 	const FWeaponData& WeaponData = WeaponsSubsystem->GetWeaponData(Type);
 	CastedWidget->SetCurrentWeaponName(WeaponData.DisplayName);
+
+	SubscribeOnMagazineSizeChanged();
+	CastedWidget->SetCurrentMagazine(WeaponData.Magazine);
 }
 
 void UInGameHUDController::UpdateCurrentHealth(float Value)
@@ -95,6 +98,17 @@ void UInGameHUDController::UpdateCurrentHealth(float Value)
 	}
 	
 	CastedWidget->SetCurrentHealth(Value);
+}
+
+void UInGameHUDController::UpdateCurrentMagazine(int CurrentMagazin)
+{
+	auto CastedWidget = Cast<UInGameHUDWidget>(Widget);
+	if (!EnsureMsg(CastedWidget, TEXT("[InGameHUDController, 1] Widget is not set")))
+	{
+		return;
+	}
+
+	CastedWidget->SetCurrentMagazine(CurrentMagazin);
 }
 
 void UInGameHUDController::SubscribeOnWeaponChanged()
@@ -111,7 +125,7 @@ void UInGameHUDController::SubscribeOnWeaponChanged()
 		return;
 	}
 
-	WeaponComponent->OnWeaponChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentWeaponInfo);
+	WeaponComponent->OnWeaponChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentWeaponInfo);	
 }
 
 void UInGameHUDController::SubscribeOnHealthChanged()
@@ -130,3 +144,27 @@ void UInGameHUDController::SubscribeOnHealthChanged()
 
 	HealthComponent->OnHealthChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentHealth);
 }
+
+void UInGameHUDController::SubscribeOnMagazineSizeChanged()
+{
+	const APlayerCharacter* CurrentPlayer = UToolbox::GetCurrentPlayerCharacter(this);
+	if (!EnsureMsg(CurrentPlayer, TEXT("[InGameHUDController] Cannot find player's character")))
+	{
+		return;
+	}
+
+	auto WeaponComponent = Cast<UCharacterWeaponComponent>(CurrentPlayer->GetComponentByClass(UCharacterWeaponComponent::StaticClass()));
+	if (!EnsureMsg(CurrentPlayer, TEXT("[InGameHUDController] Cannot find WeaponComponent")))
+	{
+		return;
+	}
+
+	auto Weapon = Cast<AWeapon>(WeaponComponent->GetChildActor());
+	if (!EnsureMsg(Weapon, TEXT("[InGameHUDController] Cannot find Weapon")))
+	{
+		return;
+	}
+
+	Weapon->OnMagazineSizeChanged.AddUObject(this, &UInGameHUDController::UpdateCurrentMagazine);
+}
+

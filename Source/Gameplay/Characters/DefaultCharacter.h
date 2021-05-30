@@ -32,6 +32,7 @@ public:
 	float GetCharacterCurrentHealth() const;
 
 	void SwitchWeaponWheel(int Shift);
+	void Reload();
 
 protected:
 

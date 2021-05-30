@@ -24,6 +24,7 @@ public:
 	void SetMissionInfo(const FString& Info);
 	void SetCurrentWeaponName(const FString& Name);
 	void SetCurrentHealth(float Value);
+	void SetCurrentMagazine(int Value);
 	
 private:
 

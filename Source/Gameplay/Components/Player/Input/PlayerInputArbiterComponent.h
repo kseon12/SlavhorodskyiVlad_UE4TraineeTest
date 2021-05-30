@@ -23,4 +23,6 @@ public:
 
 	virtual void WeaponSwitchPrevious() override;
 	virtual void WeaponSwitchNext() override;
+
+	virtual void Reload() override;
 };

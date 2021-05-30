@@ -47,6 +47,9 @@ struct FWeaponData
 	UPROPERTY(EditDefaultsOnly)
 	float Damage = 0.0f;
 	
+	UPROPERTY(EditDefaultsOnly)
+	int Magazine = 0;
+
 	/** OverrideTransform says us how the weapon should be placed inside of the character mesh */
 	UPROPERTY(EditDefaultsOnly)
 	FTransform OverrideTransform;

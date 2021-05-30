@@ -29,12 +29,21 @@ bool AWeapon::Fire()
 	CurrentCooldown = Cooldown;
 	bIsCooledDown = false;
 
+	CurrentMagazine -= 1;
+	OnMagazineSizeChanged.Broadcast(CurrentMagazine);
+
 	return true;
 }
 
 bool AWeapon::CanFire() const
 {
-	return bIsCooledDown;
+	return bIsCooledDown && CurrentMagazine;
+}
+
+void AWeapon::Reload()
+{
+	CurrentMagazine = InitialMagazine;
+	OnMagazineSizeChanged.Broadcast(CurrentMagazine);
 }
 
 void AWeapon::Tick(float DeltaTime)
