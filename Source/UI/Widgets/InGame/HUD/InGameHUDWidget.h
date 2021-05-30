@@ -42,5 +42,13 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	UProgressBar* CurrentHealth;
 
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* HealthText;
+
+	/* AMMO Holder */
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* MagazineSize;
+
 	bool IsNumberUpTo10(int32 Number) const;
 };
