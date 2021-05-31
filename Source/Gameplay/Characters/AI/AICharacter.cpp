@@ -31,18 +31,6 @@ AAICharacter::AAICharacter()
 	EnemyAnalyzer = CreateDefaultSubobject<UEnemyAnalyzerComponent>(TEXT("EnemyAnalyzer"));
 }
 
-void AAICharacter::Fire()
-{
-	if (CurrentWeapon->GetCurrentBulletsInMagazine())
-	{
-		Super::Fire();
-	}
-	else
-	{
-		Reload();
-	}
-}
-
 void AAICharacter::OnDead()
 {
 	Super::OnDead();

@@ -80,7 +80,7 @@ void UGameplayToolbox::CanShootTarget(UObject* WorldContextObject, const ADefaul
 				return;
 			}
 			const ADefaultCharacter* Target = WeakTarget.Get();
-			if (!EnsureMsg(Target, TEXT("[GameplayToolbox, CanShootTarget] Weak Target is nullptr")))
+			if (!Target)
 			{
 				ResultDelegate.Execute(false);
 				return;

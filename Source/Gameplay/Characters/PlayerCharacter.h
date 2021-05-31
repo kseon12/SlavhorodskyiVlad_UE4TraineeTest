@@ -40,12 +40,4 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
 
-	/**
-	* Task 1
-	* Override onDead() method to avoid parent-class function call, that destroy object(in this case - player) - and cause crash
-	* Presumably - because enemies trying to shoot their target(player in this case) which was destroyed. 
-	*/
-	virtual void OnDead() override
-	{
-	}
 };

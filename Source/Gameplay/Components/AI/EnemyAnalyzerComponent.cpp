@@ -43,7 +43,7 @@ void UEnemyAnalyzerComponent::CheckCanShootCurrentTarget()
 	}
 
 	auto CurrentTarget = Cast<ADefaultCharacter>(OwnerActor->GetCurrentTarget());
-	if (!EnsureMsg(CurrentTarget, TEXT("[EnemyAnalyzer] CurrentTarget is nullptr")))
+	if (!CurrentTarget)
 	{
 		return;
 	}
