@@ -25,6 +25,8 @@ public:
 	/** The actor with which the AI will interact (in most cases - attack) */
 	const AActor* GetCurrentTarget() const { return CurrentTarget; }
 
+	virtual void Fire() override;
+
 protected:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Analyzers")

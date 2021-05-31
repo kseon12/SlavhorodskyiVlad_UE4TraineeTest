@@ -40,7 +40,7 @@ protected:
 
 	/* Firing, Weapons */
 
-	void Fire();
+	virtual void Fire();
 
 	UPROPERTY(EditAnywhere, Category = "Weapons")
 	EWeaponType DefaultWeaponType = EWeaponType::AK47;

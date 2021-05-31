@@ -28,6 +28,7 @@ public:
 	void SetDamageMultiplier(float Value);
 	bool GetIsPowerUpActive();
 	void Reload();
+	int GetCurrentBulletsInMagazine();
 
 	FOnWeaponChangedDelegate OnWeaponChanged;
 

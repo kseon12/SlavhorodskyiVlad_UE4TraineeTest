@@ -104,3 +104,17 @@ void UCharacterWeaponComponent::Reload()
 		Weapon->Reload();
 	}
 }
+
+int UCharacterWeaponComponent::GetCurrentBulletsInMagazine()
+{
+	if (auto Weapon = Cast<AWeapon>(GetChildActor()))
+	{
+		auto WeaponAmmo = Cast<UWeaponAmmoComponent>(Weapon->GetComponentByClass(UWeaponAmmoComponent::StaticClass()));
+
+		if (WeaponAmmo)
+		{
+			return WeaponAmmo->GetCurrentBulletsInMagazine();
+		}
+	}
+	return 0;
+}
