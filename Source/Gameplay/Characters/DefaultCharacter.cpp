@@ -165,6 +165,11 @@ void ADefaultCharacter::OnDeadSpawnItem()
 void ADefaultCharacter::SpawnHealth()
 {
 	auto ItemsSubsystem = UItemsSubsystem::Get(this);
+	if (!EnsureMsg(ItemsSubsystem, TEXT("[DefaultCharacter] ItemsSubsystem is not set absent")))
+	{
+		return;
+	}
+
 	FActorSpawnParameters SpawnParameters;
 	FRotator SpawnRotator{ 0.0f,0.0f, 0.0f };
 
@@ -182,6 +187,11 @@ void ADefaultCharacter::SpawnHealth()
 void ADefaultCharacter::SpawnPowerUp()
 {
 	auto ItemsSubsystem = UItemsSubsystem::Get(this);
+	if (!EnsureMsg(ItemsSubsystem, TEXT("[DefaultCharacter] ItemsSubsystem is not set absent")))
+	{
+		return;
+	}
+
 	FActorSpawnParameters SpawnParameters;
 	FRotator SpawnRotator{ 0.0f,0.0f, 0.0f };
 
@@ -199,6 +209,11 @@ void ADefaultCharacter::SpawnPowerUp()
 void ADefaultCharacter::SpawnAmmo()
 {
 	auto ItemsSubsystem = UItemsSubsystem::Get(this);
+	if (!EnsureMsg(ItemsSubsystem, TEXT("[DefaultCharacter] ItemsSubsystem is not set absent")))
+	{
+		return;
+	}
+
 	FActorSpawnParameters SpawnParameters;
 	FRotator SpawnRotator{ 0.0f,0.0f, 0.0f };
 

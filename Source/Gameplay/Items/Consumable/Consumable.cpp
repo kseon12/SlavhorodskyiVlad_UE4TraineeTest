@@ -9,7 +9,7 @@ void AConsumable::BeginPlay()
 {
     Super::BeginPlay();
 
-    this->OnActorBeginOverlap.AddDynamic(this, &AConsumable::OnOverlapBegin);
+   OnActorBeginOverlap.AddDynamic(this, &AConsumable::OnOverlapBegin);
 }
 
 float AConsumable::GetAdditiveValue()
