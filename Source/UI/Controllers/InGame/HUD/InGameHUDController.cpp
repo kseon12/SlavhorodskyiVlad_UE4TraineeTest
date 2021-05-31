@@ -151,7 +151,7 @@ void UInGameHUDController::SubscribeOnHealthChanged()
 	}
 
 	auto HealthComponent = Cast<UChracterHealthComponent>(CurrentPlayer->GetComponentByClass(UChracterHealthComponent::StaticClass()));
-	if (!EnsureMsg(CurrentPlayer, TEXT("[InGameHUDController] Cannot find HealthComponent")))
+	if (!EnsureMsg(HealthComponent, TEXT("[InGameHUDController] Cannot find HealthComponent")))
 	{
 		return;
 	}
