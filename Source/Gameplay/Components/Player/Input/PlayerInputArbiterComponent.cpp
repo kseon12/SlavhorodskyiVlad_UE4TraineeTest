@@ -83,25 +83,11 @@ void UPlayerInputArbiterComponent::StopAim()
 
 void UPlayerInputArbiterComponent::WeaponSwitchPrevious()
 {
-	auto Player = Cast<APlayerCharacter>(OwnerCharacter);
-
-	if (!EnsureMsg(Player, TEXT("[PlayerInputArbiter] OwnerCharacter is not Player")))
-	{
-		return;
-	}
-
 	OwnerCharacter->SwitchWeaponWheel(-1);
 }
 
 void UPlayerInputArbiterComponent::WeaponSwitchNext()
 {
-	auto Player = Cast<APlayerCharacter>(OwnerCharacter);
-
-	if (!EnsureMsg(Player, TEXT("[PlayerInputArbiter] OwnerCharacter is not Player")))
-	{
-		return;
-	}
-
 	OwnerCharacter->SwitchWeaponWheel(1);
 }
 
