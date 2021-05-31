@@ -99,11 +99,6 @@ float ADefaultCharacter::GetCharacterCurrentHealth() const
 void ADefaultCharacter::SwitchWeaponWheel(int Shift)
 {
 	auto WeaponType = Inventory->GetWeaponRoll(Shift);
-	if (!EnsureMsg(WeaponType, TEXT("[DefaultCharacter] WeaponType is not set in Inventory")))
-	{
-		return;
-	}
-
 	CurrentWeapon->SetWeaponType(WeaponType);
 }
 
